@@ -1,0 +1,8 @@
+$TargetPath1 = "C:\Users\edcon\Documents\05data\powerb\watchlists\2026\July\3\0"
+
+$TargetPath2 = "C:\Users\edcon\Documents\1LessonNotes\powershell\scripts"
+
+.\savingpaths.ps1 -TargetPath $TargetPath1
+
+cd $TargetPath2
+
