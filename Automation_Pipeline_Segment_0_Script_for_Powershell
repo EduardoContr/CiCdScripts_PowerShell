@@ -1,0 +1,14 @@
+param (
+    [Parameter(Mandatory = $true)]
+    [string]$TargetPath
+)
+ 
+Write-Host "Your script was passed:" $TargetPath
+if (Test-Path $TargetPath) {
+    Write-Host "Exists"
+} else {
+    Write-Host "❌ Path not found."
+}
+Write-Host "Excellent!"
+
+
