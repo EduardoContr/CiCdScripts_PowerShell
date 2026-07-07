@@ -1,0 +1,10 @@
+$TargetPath1 = "C:\Users\edcon\Documents\05data\powerb\watchlists\2026\July\3"
+
+$TargetPath2 = "C:\Users\edcon\Documents\1LessonNotes\powershell\scripts"
+
+$TargetPath3_Downloads ="C:\Users\edcon\Downloads"
+
+Copy-Item -Path C:\Users\edcon\Downloads\* -Include "* Jul 07 2026 (1).csv"
+.\savingpathsstep2PartOnev2.ps1 -TargetPath $TargetPath1
+
+
