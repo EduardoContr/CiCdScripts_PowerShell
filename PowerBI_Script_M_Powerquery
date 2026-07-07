@@ -1,0 +1,28 @@
+let
+    Source = Folder.Files("C:\Users\edcon\Documents\05data\powerb\watchlists\2026\July\6\0"),
+    #"Filtered Hidden Files1" = Table.SelectRows(Source, each [Attributes]?[Hidden]? <> true),
+    #"Invoke Custom Function1" = Table.AddColumn(#"Filtered Hidden Files1", "Transform File (21)", each #"Transform File (21)"([Content])),
+    #"Renamed Columns1" = Table.RenameColumns(#"Invoke Custom Function1", {"Name", "Source.Name"}),
+    #"Removed Other Columns1" = Table.SelectColumns(#"Renamed Columns1", {"Source.Name", "Transform File (21)"}),
+    #"Expanded Table Column1" = Table.ExpandTableColumn(#"Removed Other Columns1", "Transform File (21)", Table.ColumnNames(#"Transform File (21)"(#"Sample File (21)"))),
+    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Table Column1",{{"Source.Name", type text}, {"Symbol", type text}, {"Last Price", Currency.Type}, {"Change $", type number}, {"Change %", type number}, {"Bid", type text}, {"Ask", type text}, {"Day's Range", type text}, {"52 Week Range", type text}, {"Volume", type text}, {"Last Trade (ET)", type time}}),
+
+#"Sorted Rows" = Table.Sort(#"Changed Type",{{"Symbol", Order.Ascending}}),
+    #"Removed Duplicates" = Table.Distinct(#"Sorted Rows", {"Symbol"}),
+    #"Replaced Value" = Table.ReplaceValue(#"Removed Duplicates",null,0,Replacer.ReplaceValue,{"Last Price"}),
+    #"Replaced Errors" = Table.ReplaceErrorValues(#"Replaced Value", {{"Volume", 100000}}),
+    #"Changed Type1" = Table.TransformColumnTypes(#"Replaced Errors",{{"Last Trade (ET)", type date}}),
+    #"Replaced Value1" = Table.ReplaceValue(#"Changed Type1",null,0,Replacer.ReplaceValue,{"Change %"}),
+    #"Replaced Errors1" = Table.ReplaceErrorValues(#"Replaced Value1", {{"Change %", 1}}),
+    #"Replaced Errors2" = Table.ReplaceErrorValues(#"Replaced Errors1", {{"Last Price", 1}}),
+    #"Sorted Rows1" = Table.Sort(#"Replaced Errors2",{{"Change %", Order.Descending}}),
+    #"Added Index" = Table.AddIndexColumn(#"Sorted Rows1", "Index", 1, 1, Int64.Type),
+    #"Sorted Rows2" = Table.Sort(#"Added Index",{{"Volume", Order.Descending}}),
+    #"Added Index1" = Table.AddIndexColumn(#"Sorted Rows2", "Index.1", 1, 1, Int64.Type),
+    #"Added Custom" = Table.AddColumn(#"Added Index1", "Custom", each ([Index]+[Index.1])/2),
+    #"Sorted Rows3" = Table.Sort(#"Added Custom",{{"Custom", Order.Ascending}}),
+    #"Changed Type2" = Table.TransformColumnTypes(#"Sorted Rows3",{{"Custom", type number}, {"Volume", Int64.Type}}),
+    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type2",{"Symbol", "Last Price", "Volume", "Custom"}),
+    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Removed Other Columns", {"Volume"})
+in
+    #"Removed Errors"
