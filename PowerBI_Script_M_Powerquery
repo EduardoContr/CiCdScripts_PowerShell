@@ -1,5 +1,8 @@
 let
-    Source = Folder.Files("C:\Users\edcon\Documents\05data\powerb\watchlists\2026\July\6\0"),
+    a = "C:\Users\edcon\Documents\05data\powerb\watchlists\2026\July\6\0"
+    b = "C:\Users\edcon\Documents\05data\powerb\watchlists\2026\July\6\1"
+    c = "C:\Users\edcon\Documents\05data\powerb\watchlists\2026\July\6\1"
+    Source = Folder.Files(a),
     #"Filtered Hidden Files1" = Table.SelectRows(Source, each [Attributes]?[Hidden]? <> true),
     #"Invoke Custom Function1" = Table.AddColumn(#"Filtered Hidden Files1", "Transform File (21)", each #"Transform File (21)"([Content])),
     #"Renamed Columns1" = Table.RenameColumns(#"Invoke Custom Function1", {"Name", "Source.Name"}),
