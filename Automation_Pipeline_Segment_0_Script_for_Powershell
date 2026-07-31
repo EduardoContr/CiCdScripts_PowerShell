@@ -6,6 +6,9 @@ param (
 Write-Host "Your script was passed:" $TargetPath
 if (Test-Path $TargetPath) {
     Write-Host "Exists"
+    cd $TargetPath
+    Copy-Item -Path C:\Users\edcon\Downloads\* -Include "* Jul 30 2026.csv"
+
 } else {
     Write-Host "❌ Path not found."
 }
