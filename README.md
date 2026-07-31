@@ -19,6 +19,9 @@ note, subsequent hours are stored in separate files with extension (1), (2) etc
 ..use M Language to do some transformations
 Set a path where files are for that given day and hour to a variable:
 
+In PowerBI select transform (Powerquery), then select source, new query, advanced editor:
+[note at end of each hour or period choose the approriate stored value, hour1, hour2, hour3, which variable stores the local folder where the day's company info is stored by hour, updated by hour for as many hours as needed.  .. for this example we take opening, first and second hour..
+
 let 
     vara = ("C:\Users\edcon\Documents\05data\powerb\watchlists\2026\July\30\0"),
     varb = ("C:\Users\edcon\Documents\05data\powerb\watchlists\2026\July\30\1"),
