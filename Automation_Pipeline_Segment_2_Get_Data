@@ -4,7 +4,7 @@ $TargetPath2 = "C:\Users\edcon\Documents\1LessonNotes\powershell\scripts"
 
 $TargetPath3_Downloads ="C:\Users\edcon\Downloads"
 
-#backup file
+#backup file which contains original path from which the script is stored
 .\savingpathsstep2PartOnev2.ps1 -TargetPath $TargetPath1
 
 
